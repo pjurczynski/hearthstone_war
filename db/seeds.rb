@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require Rails.root.join('lib', 'importers', 'deck_importer.rb')
+
+hearthstone_decks_file = Rails.root.join('app', 'data', 'hearthstone_decks.json')
+
+decks = JSON.parse hearthstone_decks_file.read
+
+decks.each do |deck, cards|
+  DeckImporter.new(deck, cards).import!
+end
