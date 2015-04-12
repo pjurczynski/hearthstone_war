@@ -7,7 +7,7 @@ describe Game do
   context "game of computer against you" do
     subject { game }
 
-    let(:game) { described_class.new(player_1: computer, player_2: you) }
+    let(:game) { build(:game, player_1: computer, player_2: you) }
     let(:computer) { build(:player, :computer) }
     let(:you) { build(:player, :you) }
 
