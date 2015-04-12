@@ -4,22 +4,11 @@ class Game
 
   validates_presence_of :player_1, :player_2
 
+  delegate :start, :finish, :finished?, to: :round, prefix: true
+
   def initialize(attributes = {})
-    self.round_finished = attributes.fetch(:round_finished) { true }
     super(attributes)
-  end
-
-  def start_round
-    return false unless round_finished?
-    all_players.each(&:play_card)
-    self.round_finished = false
-  end
-
-  def finish_round
-    return true if round_finished?
-    player_1.deal_damage(player_2)
-    player_2.deal_damage(player_1)
-    self.round_finished = true
+    self.round = new_round
   end
 
   def winner
@@ -31,15 +20,16 @@ class Game
     not(all_players.all?(&:has_cards?))
   end
 
-  def round_finished?
-    round_finished
-  end
-
   private
 
-  attr_accessor :round_finished
+
+  attr_accessor :round
 
   def all_players
     Set.new([player_1, player_2])
+  end
+
+  def new_round
+    Round.new(player_1: player_1, player_2: player_2)
   end
 end
