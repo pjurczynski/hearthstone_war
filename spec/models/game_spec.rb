@@ -20,5 +20,23 @@ describe Game do
 
       it { expect{ subject.start_round }.to change{ subject.round_finished? }.to(false) }
     end
+
+    context "the round has been played" do
+      before { subject.start_round }
+
+      describe "#finish_round" do
+        it "attacks computers card" do
+          expect{ subject.finish_round }
+            .to change{ computer.played_card.health }.by(-you.played_card.attack)
+        end
+
+        it "attacks your card" do
+          expect{ subject.finish_round }
+            .to change{ you.played_card.health }.by(-computer.played_card.attack)
+        end
+
+        it { expect{ subject.finish_round }.to change{ subject.round_finished? }.to(true) }
+      end
+    end
   end
 end

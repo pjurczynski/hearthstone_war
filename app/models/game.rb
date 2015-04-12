@@ -10,6 +10,13 @@ class Game
     self.round_finished = false
   end
 
+  def finish_round
+    return true if round_finished?
+    player_1.deal_damage(player_2)
+    player_2.deal_damage(player_1)
+    self.round_finished = true
+  end
+
   def round_finished?
     round_finished
   end

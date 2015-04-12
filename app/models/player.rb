@@ -10,6 +10,10 @@ class Player
     self.played_card = available_cards.pop
   end
 
+  def deal_damage(opponent)
+    played_card.deal_damage(opponent.played_card)
+  end
+
   def has_cards?
     available_cards.any? || not(played_card.dead?)
   end
