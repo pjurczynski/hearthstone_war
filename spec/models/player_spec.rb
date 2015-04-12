@@ -9,6 +9,8 @@ describe Player do
 
     let(:player) { build(:player) }
 
+    it { expect(subject.played_card).to be_a DeadCard }
+
     describe "#play_card" do
       it { expect{ subject.play_card }.to change{ player.played_card } }
       it { expect{ subject.play_card }.to change{ player.available_cards.count }.by(-1) }

@@ -4,6 +4,11 @@ class Player
 
   validates_presence_of :name, :available_cards
 
+  def initialize(attributes = {})
+    self.played_card = attributes.fetch(:played_card) { DeadCard.new }
+    super(attributes)
+  end
+
   def play_card
     return self.played_card unless has_cards?
     return self.played_card unless played_card.dead?
