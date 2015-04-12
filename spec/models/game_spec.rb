@@ -38,5 +38,34 @@ describe Game do
         it { expect{ subject.finish_round }.to change{ subject.round_finished? }.to(true) }
       end
     end
+
+    describe "#winner" do
+      context "computer has no more cards" do
+        before { computer.available_cards = [] }
+
+        it "announces you as a winner" do
+          expect(subject.winner).to eq you.name
+        end
+      end
+
+      context "you don't have more cards" do
+        before { you.available_cards = [] }
+
+        it "announces computer as a winner" do
+          expect(subject.winner).to eq computer.name
+        end
+      end
+
+      context "you both run out of cards" do
+        before do
+          computer.available_cards = []
+          you.available_cards = []
+        end
+
+        it "announces a draw" do
+          expect(subject.winner).to eq :draw
+        end
+      end
+    end
   end
 end

@@ -17,6 +17,15 @@ class Game
     self.round_finished = true
   end
 
+  def winner
+    return nil unless finished?
+    all_players.find(&:has_cards?).try(:name) || :draw
+  end
+
+  def finished?
+    not(all_players.all?(&:has_cards?))
+  end
+
   def round_finished?
     round_finished
   end
