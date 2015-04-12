@@ -4,6 +4,11 @@ class Game
 
   validates_presence_of :player_1, :player_2
 
+  def initialize(attributes = {})
+    self.round_finished = attributes.fetch(:round_finished) { true }
+    super(attributes)
+  end
+
   def start_round
     return false unless round_finished?
     all_players.each(&:play_card)

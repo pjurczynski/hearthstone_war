@@ -11,6 +11,8 @@ describe Game do
     let(:computer) { build(:player, :computer) }
     let(:you) { build(:player, :you) }
 
+    it { expect(subject.round_finished?).to be_truthy }
+
     describe "#start_round" do
       it { expect{ subject.start_round }.to change{ computer.played_card } }
       it { expect{ subject.start_round }.to change{ computer.available_cards.count }.by(-1) }
