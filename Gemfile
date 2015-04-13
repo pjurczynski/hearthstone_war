@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'simple_form'
+gem 'responders', '~> 2.0'
 
 group :development do
   gem 'better_errors'
