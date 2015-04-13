@@ -1,0 +1,25 @@
+// Place all the styles related to the games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+h3.panel-heading {
+  margin: 0;
+}
+
+.panel-body {
+  height: 200px;
+}
+
+.vs_block {
+  line-height: 400px;
+  text-align: center;
+  font-size: 50px;
+}
+
+.form-actions--full {
+  width: 100%;
+
+  .btn {
+    width: 100%;
+  }
+}

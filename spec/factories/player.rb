@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :player, aliases: %w(player_1 player_2) do
-    available_cards { Card.all.sample(10) }
+    available_cards { Card.where(id: Card.all.sample(10)) }
 
     trait :computer do
       name 'Nexus'

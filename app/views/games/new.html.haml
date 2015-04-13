@@ -1,0 +1,26 @@
+%h1 New game
+
+= simple_form_for(@game) do |f|
+  = f.error_notification
+
+  = f.simple_fields_for :player_1 do |g|
+    .form-inputs
+      = g.input :name, label: 'your name'
+      .hide= g.input 'available_cards',
+        input_html: { value: @game.player_1.available_cards.map(&:id).join(',') }
+      .hide= g.input :played_card,
+        input_html: { value: @game.player_1.played_card.as_json }
+
+  = f.simple_fields_for :player_2 do |g|
+    .form-inputs
+      = g.input :name, as: :hidden,
+        input_html: { value: @game.player_2.name }
+      .hide= g.input 'available_cards',
+        input_html: { value: @game.player_2.available_cards.map(&:id).join(',') }
+      .hide= g.input :played_card,
+        input_html: { value: @game.player_2.played_card.as_json }
+
+  .form-actions
+    = f.button :submit
+
+= link_to 'Back', games_path

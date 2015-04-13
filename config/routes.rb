@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
   resources :decks, only: %w(index show)
-  root to: 'visitors#index'
+  resources :games, only: %w(new create edit update)
+
+  root to: 'games#new'
 end

@@ -1,5 +1,9 @@
 class DeadCard
   include ActiveModel::Model
+  def id
+    nil
+  end
+
   def name
     'Dead Card'
   end
@@ -24,6 +28,10 @@ class DeadCard
     0
   end
 
+  def health=(val)
+    0
+  end
+
   def health
     0
   end
@@ -42,5 +50,9 @@ class DeadCard
 
   def deal_damage(card)
     card.health
+  end
+
+  def to_partial_path
+    'cards/card'
   end
 end

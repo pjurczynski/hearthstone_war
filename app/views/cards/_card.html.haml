@@ -1,0 +1,11 @@
+- form ||= false
+.panel.panel-primary
+  %h3.panel-heading= card.name
+  .panel-body
+    %h4!= card.flavor
+  .panel-footer
+    - if form
+      this
+      = form.radio_button :next_card_id, card.id
+    .to_left.btn.btn-danger Attack (#{card.attack})
+    .to_right.btn.btn-success Health (#{card.health})

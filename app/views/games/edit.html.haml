@@ -1,0 +1,49 @@
+.container
+  .row
+    .col-xs-5
+      %h2= @game.player_1.name
+      = render @game.player_1.played_card, as: :card
+    .col-xs-2.vs_block vs
+    .col-xs-5
+      %h2= @game.player_2.name
+      = render @game.player_2.played_card, as: :card
+
+  .row
+    = simple_form_for(@game, method: :put, url: game_path(@game.id)) do |f|
+      = f.error_notification
+
+      = f.simple_fields_for :player_1 do |g|
+        .form-inputs
+          = g.input :name, label: 'your name', as: :hidden,
+            input_html: { value: @game.player_1.name }
+          .hide= g.input :available_cards,
+            input_html: { value: @game.player_1.available_cards.map(&:id).join(',') }
+          = g.input :played_card,
+            as: :hidden,
+            input_html: { value: @game.player_1.played_card.to_json }
+
+          - if @game.player_1.played_card.dead?
+            .col-xs-12
+              %h3 choose your card to play
+
+            - @game.player_1.available_cards.each do |card|
+              .col-xs-3
+                = render partial: card, locals: { form: g, card: card }
+          - else
+            %p nice! Your card is still alive!
+
+      = f.simple_fields_for :player_2 do |g|
+        .form-inputs
+          = g.input :name, as: :hidden,
+            input_html: { value: @game.player_2.name }
+          = g.input :available_cards, as: :hidden,
+            input_html: { value: @game.player_2.available_cards.map(&:id).join(',') }
+          = g.input :played_card, as: :hidden,
+            input_html: { value: @game.player_2.played_card.to_json }
+          = g.input :next_card_id, as: :hidden,
+            input_html: { value: @game.player_2.next_card_id }
+
+      .form-actions.form-actions--full
+        = f.button :submit, 'Play Card', class: %w(btn btn-lg btn-success)
+
+  .row= link_to 'Back', games_path
