@@ -37,6 +37,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'railroady'
 end
 
 group :test do
