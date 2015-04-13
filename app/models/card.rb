@@ -4,4 +4,8 @@ class Card < ActiveRecord::Base
   def deal_damage(card)
     card.health -= attack
   end
+
+  def dead?
+    health <= 0
+  end
 end
